@@ -1,2 +1,5 @@
 export * from './NavBar'
 export * from './Sidebar'
+export * from './EntryCard'
+export * from './EntyList'
+export * from './NewEntry'
