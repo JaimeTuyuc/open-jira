@@ -34,7 +34,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
                     </CardContent>
 
                     <CardActions sx={{ display: 'flex', justifyContent: 'end', paddingRight: '2'}}>
-                        <Typography variant='body2'>{ entry.createdAt }</Typography>
+                        <Typography variant='body2'>30 minutes ago</Typography>
                     </CardActions>
                 </CardActionArea>
             </Card>
