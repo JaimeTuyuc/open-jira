@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useReducer } from 'react'
 import { EntriesContext, entriesReducer } from './'
 import { Entry } from '../../interfaces';
-import {v4 as uuid} from 'uuid'
+import { useSnackbar } from 'notistack'
 import entriesApi from '../../apis/entriesApi';
 
 export interface EntriesState {
@@ -17,6 +17,7 @@ const ENTRIES_INITIAL_STATE: EntriesState = {
 }
 
 export const EntriesProvider: FC<Props> = ({ children }) => {
+    const { enqueueSnackbar } = useSnackbar()
 
     const [state, dispatch] = useReducer(entriesReducer, ENTRIES_INITIAL_STATE)
 
@@ -29,10 +30,20 @@ export const EntriesProvider: FC<Props> = ({ children }) => {
         }
     }
 
-    const updateEntry = async (entry: Entry) => {
+    const updateEntry = async (entry: Entry, showSnackBar = false) => {
         try {
             const { data } = await entriesApi.put<Entry>(`/entries/${entry._id}`, { description: entry.description, status: entry.status })
             dispatch({ type: '[Entry] update entry', payload: data })
+            if (showSnackBar) {
+                enqueueSnackbar('Entry updated', {
+                    variant: 'success',
+                    autoHideDuration: 1800,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right'
+                    }
+                })
+            }
             
         } catch (error) {
             console.log(error, 'Unable to update the Entry');
