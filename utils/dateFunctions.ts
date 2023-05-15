@@ -9,6 +9,6 @@ export const getFormatDistanceToNow = (date: number) => {
 
 export const getFormatDistanceToNowMoreOptions = (date: number) => {
     const fromNow = formatDistanceToNow(date, { locale: es})
-
+    //! Some changes made
     return fromNow
 }
